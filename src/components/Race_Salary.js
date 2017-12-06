@@ -30,12 +30,14 @@ class Race_Salary extends Component {
                 .append('svg')
                 .attr('width', w)
                 .attr('height', h);
+
         // set up a linear scale to be used for the x Axis
         let xScale = d3.scaleLinear()
               // set domain to extend from 0 to 1 for accurate % scale
               .domain([0,1])
               // set range to extend to the width of the element
               .range([0,w])
+
         // set up an ordinal scale to be used for the y axis
         let yScale = d3.scaleBand()
               // for each value in data, create an entry with the race key
@@ -44,21 +46,28 @@ class Race_Salary extends Component {
               .range([0, h])
               // padding between bars
               .padding(0.1);
+
         // an svg canvas for the graph itself to be written to
         let g = svg.append('g')
               .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
         // function to create gridlines that run through the middle of the graph
         let makeXGridlines = () => {
                 // line positions based on the xScale, with 9 ticks (10 - 100)
                 return d3.axisBottom(xScale)
                   .ticks(9)
               }
+
+        // tooltip setup
+        let tooltip = d3.select('body').append('div').attr('class', 'toolTip');
+
         // append X Axis percentage-formatted labels and ticks to bottom of graph
         g.append('g')
               .attr('transform', `translate(0,${h})`)
               .call(d3.axisBottom(xScale)
                 .tickFormat(formatPercent)
               );
+
         // append Y Axis labels based on yScale and race_salary data keys
         g.append('g')
               .call(d3.axisLeft(yScale)
@@ -66,6 +75,7 @@ class Race_Salary extends Component {
                 .tickSize(0)
                 .tickPadding(3)
               );
+
         // append gridlines using makeXGridlines function above
         g.append('g')			
               .attr('class', 'grid')
@@ -77,37 +87,46 @@ class Race_Salary extends Component {
                   // no formatting/labeling
                   .tickFormat('')
               );
+
         // append data bars
-        g.append("g").selectAll("rect")
+        g.append('g').selectAll('rect')
             .data(data)
-            .enter().append("rect")
+            .enter().append('rect')
             // place bar based on race key
-            .attr("y", d => yScale(d.race))
-            .attr("x", 0)
+            .attr('y', d => yScale(d.race))
+            .attr('x', 0)
             // percentage over 50k field should inform the width of each bar
-            .attr("width", d => xScale(d.over_50_k))
+            .attr('width', d => xScale(d.over_50_k))
             // dynamically sets height/size of the bar based on data fields
-            .attr("height", yScale.bandwidth())
-            .attr("fill", "steelblue")
-            .attr('fill-opacity', 0.9);
-        // append "false" or empty bars to fill remaining space
-        g.append("g").selectAll("rect")
+            .attr('height', yScale.bandwidth())
+            .attr('fill', 'steelblue')
+            .attr('fill-opacity', 0.9)
+            .on('mousemove', d => {
+              tooltip
+                .style('left', d3.event.pageX - 50 + 'px')
+                .style('top', d3.event.pageY - 70 + 'px')
+                .style('display', 'inline-block')
+                .html(`${(d.race)}<br>${(formatPercent(d.over_50_k))}`);
+            })
+            .on('mouseout', d => { tooltip.style('display', 'none');});
+        // append 'false' or empty bars to fill remaining space
+        g.append('g').selectAll('rect')
             .data(data)
-            .enter().append("rect")
+            .enter().append('rect')
             // set the starting y value based on race key, as above
-            .attr("y", d => {
+            .attr('y', d => {
               return yScale(d.race)
             })
             // x position should start where data bar leaves off, at the data value max
-            .attr("x", d => {
+            .attr('x', d => {
               return xScale(d.over_50_k)
             })
             // the width of the bar should be equal to the total width minus the data value. this results in a complimentary value to the data bars.
-            .attr("width", d => {
+            .attr('width', d => {
               return w - xScale(d.over_50_k)
             })
-            .attr("height", yScale.bandwidth())
-            .attr("fill", "lightcoral")
+            .attr('height', yScale.bandwidth())
+            .attr('fill', 'lightcoral')
             .attr('fill-opacity', 0.75);
         // false legend square
         svg.append('rect')
@@ -162,7 +181,7 @@ class Race_Salary extends Component {
   render() {
     return (
       <div>
-        <svg width="960" height="500"></svg>
+        <svg width='960' height='500'></svg>
       </div>
     );
   }

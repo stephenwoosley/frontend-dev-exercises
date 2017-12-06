@@ -16,3 +16,18 @@
     display: block;
   }
 }
+
+.toolTip {
+  position: absolute;
+  font: 10px sans-serif;
+  font-weight: bold;
+  display: none;
+  width: 70px;
+  height: 55px;
+  background: #ffffff;
+  border: 2px solid #00CBA9;
+  border-radius: 4px;
+  padding: 2px;
+  text-align: center;
+  pointer-events: none;
+}
