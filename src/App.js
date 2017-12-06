@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import * as d3 from 'd3';
+import Education_Salary from './components/Education_Salary';
+import Race_Salary from './components/Race_Salary';
+import Combined_Chart from './components/Combined_Chart';
 import logo from './logo.svg';
-import Education_Salary from "./components/Education_Salary"
-import Race_Salary from "./components/Race_Salary"
-import Combined_Chart from "./components/Combined_Chart"
 import 'bulma/css/bulma.css';
 import './App.css';
+
 
 class App extends Component {
 
@@ -49,6 +51,7 @@ class App extends Component {
           <section className="tab-container">
             <div className="tabs">
               <ul>
+                {/* Display an li as active based on state */}
                 <li
                   className={this.state.chart1Active ? 'is-active': null} 
                   onClick={this.toggleActive}
