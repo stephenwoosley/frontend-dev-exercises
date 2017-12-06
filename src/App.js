@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import Education_Salary from "./components/Education_Salary"
+import Race_Salary from "./components/Race_Salary"
+import Combined_Chart from "./components/Combined_Chart"
 import 'bulma/css/bulma.css';
 import './App.css';
 
@@ -16,17 +19,17 @@ class App extends Component {
     // switch on the text content of event.target
     switch(event.target.text) {
       // set state for booleans based on target clicked
-      case "Chart 1":
+      case "Education & Salary":
         this.setState({chart1Active: true}) 
         this.setState({chart2Active: false})
         this.setState({chart3Active: false})
         break;
-      case "Chart 2":
+      case "Race & Salary":
         this.setState({chart1Active: false}) 
         this.setState({chart2Active: true})
         this.setState({chart3Active: false})
         break;
-      case "Chart 3":
+      case "Combined Chart":
         this.setState({chart1Active: false}) 
         this.setState({chart2Active: false})
         this.setState({chart3Active: true})
@@ -42,30 +45,37 @@ class App extends Component {
             d3.js + React.js + Bulma CSS
           </div>
         </nav>
-        <section>
-          <section className="container">
+        <section className="container">
+          <section className="tab-container">
             <div className="tabs">
               <ul>
                 <li
                   className={this.state.chart1Active ? 'is-active': null} 
                   onClick={this.toggleActive}
                 >
-                  <a>Chart 1</a>
+                  <a>Education & Salary</a>
                 </li>
                 <li
                   className={this.state.chart2Active ? 'is-active': null} 
                   onClick={this.toggleActive}
                 >
-                  <a>Chart 2</a>
+                  <a>Race & Salary</a>
                 </li>
                 <li
                   className={this.state.chart3Active ? 'is-active': null} 
                   onClick={this.toggleActive}
                 >
-                  <a>Chart 3</a>
+                  <a>Combined Chart</a>
                 </li>
               </ul>
             </div>
+            {
+              this.state.chart1Active
+              ? <Education_Salary/>
+              : this.state.chart2Active
+                ? <Race_Salary/>
+                : <Combined_Chart/>
+            }
           </section>   
         </section> 
       </div>
