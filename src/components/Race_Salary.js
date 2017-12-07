@@ -8,9 +8,7 @@ class Race_Salary extends Component {
   state = {}
   
     componentDidMount() {
-  
       this.loadData();
-      
     }
   
     loadData = () => {
@@ -109,6 +107,7 @@ class Race_Salary extends Component {
                 .html(`${(d.race)}<br>${(formatPercent(d.over_50_k))}`);
             })
             .on('mouseout', d => { tooltip.style('display', 'none');});
+
         // append 'false' or empty bars to fill remaining space
         g.append('g').selectAll('rect')
             .data(data)
@@ -128,6 +127,7 @@ class Race_Salary extends Component {
             .attr('height', yScale.bandwidth())
             .attr('fill', 'lightcoral')
             .attr('fill-opacity', 0.75);
+
         // false legend square
         svg.append('rect')
             .attr('fill', 'lightcoral')
@@ -137,6 +137,7 @@ class Race_Salary extends Component {
             .attr('x', w + 120)
             .attr('y', 0)
             .attr('transform', 'translate(0,12.5)');
+
         // true legend square 
         svg.append('rect')
             .attr('fill', 'steelblue')
@@ -146,6 +147,7 @@ class Race_Salary extends Component {
             .attr('x', w + 40)
             .attr('y', 0)
             .attr('transform', 'translate(0,12.5)');
+
         // false legend text
         svg.append('text')
             .attr('x', w + 10)
@@ -155,6 +157,7 @@ class Race_Salary extends Component {
             .attr('font-size', '12px')
             .attr('fill', 'black')
             .attr('transform', 'translate(0,27)');
+
         // true legend text
         svg.append('text')
             .attr('x', w + 85)
@@ -164,11 +167,12 @@ class Race_Salary extends Component {
             .attr('font-size', '12px')
             .attr('fill', 'black')
             .attr('transform', 'translate(0,27)');
+
         // graph title
         svg.append('text')
             .attr('x', 200)
             .attr('y', 0)
-            .text('Race and Pay (+$50k)')
+            .text('Race and Salary (+$50k)')
             .attr('font-family', 'BlinkMacSystemFont,-apple-system,,Roboto,Oxygen,Ubuntu,Cantarell,Helvetica,Arial,sans-serif')
             .attr('font-size', '20px')
             .attr('font-weight', 'bold')

@@ -21,17 +21,17 @@ class App extends Component {
     // switch on the text content of event.target
     switch(event.target.text) {
       // set state for booleans based on target clicked
-      case "Education & Salary":
+      case 'Education & Salary':
         this.setState({chart1Active: true}) 
         this.setState({chart2Active: false})
         this.setState({chart3Active: false})
         break;
-      case "Race & Salary":
+      case 'Race & Salary':
         this.setState({chart1Active: false}) 
         this.setState({chart2Active: true})
         this.setState({chart3Active: false})
         break;
-      case "Combined Chart":
+      case 'Combined Chart':
         this.setState({chart1Active: false}) 
         this.setState({chart2Active: false})
         this.setState({chart3Active: true})
@@ -42,14 +42,14 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
-          <div className="navbar-item is-size-3">
+        <nav className='navbar is-primary' role='navigation' aria-label='main navigation'>
+          <div className='navbar-item is-size-3'>
             d3.js + React.js + Bulma CSS
           </div>
         </nav>
-        <section className="container">
-          <section className="tab-container">
-            <div className="tabs">
+        <section className='container'>
+          <section className='tab-container'>
+            <div className='tabs'>
               <ul>
                 {/* Display an li as active based on state */}
                 <li

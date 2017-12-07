@@ -10,9 +10,7 @@ class Education_Salary extends Component {
   state = {}
 
   componentDidMount() {
-
-    this.loadData();
-    
+    this.loadData(); 
   }
 
   loadData = () => {
@@ -176,7 +174,7 @@ class Education_Salary extends Component {
       svg.append('text')
           .attr('x', 200)
           .attr('y', 0)
-          .text('Education Level and Pay (+$50k)')
+          .text('Education Level and Salary (+$50k)')
           .attr('font-family', 'BlinkMacSystemFont,-apple-system,,Roboto,Oxygen,Ubuntu,Cantarell,Helvetica,Arial,sans-serif')
           .attr('font-size', '20px')
           .attr('font-weight', 'bold')
