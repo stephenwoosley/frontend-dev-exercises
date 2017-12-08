@@ -82,24 +82,24 @@ class Education_Salary extends Component {
             // make lines span the height of the graph
             .attr('transform', `translate(0,${h})`)
             .call(makeXGridlines()
-                // negative value for the "wrong" direction
+                // negative value for the 'wrong' direction
                 .tickSize(-h)
                 // no formatting/labeling
                 .tickFormat('')
             );
 
       // append data bars
-      g.append("g").selectAll("rect")
+      let dataBars = g.append('g').selectAll('rect')
           .data(data)
-          .enter().append("rect")
+          .enter().append('rect')
           // place bar based on education_level key
-          .attr("y", d => yScale(d.education_level))
-          .attr("x", 0)
-          // percentage over 50k field should inform the width of each bar
-          .attr("width", d => xScale(d.over_50_k))
+          .attr('y', d => yScale(d.education_level))
+          .attr('x', 0)
+          // set initial width to 0 to allow for transition effect
+          .attr('width', 0)
           // dynamically sets height/size of the bar based on data fields
-          .attr("height", yScale.bandwidth())
-          .attr("fill", "steelblue")
+          .attr('height', yScale.bandwidth())
+          .attr('fill', 'steelblue')
           .attr('fill-opacity', 0.9)
           .on('mousemove', d => {
             tooltip
@@ -110,8 +110,15 @@ class Education_Salary extends Component {
           })
           .on('mouseout', d => { tooltip.style('display', 'none');});
 
+      // set up transition for data bars
+      dataBars.transition() 
+          // a slight delay for effect
+          .delay(200)
+          // percentage over 50k field should inform the width of each bar
+          .attr('width', d => xScale(d.over_50_k));
+
       // append "false" or empty bars to fill remaining space
-      g.append("g").selectAll("rect")
+      let falseBars = g.append("g").selectAll("rect")
           .data(data)
           .enter().append("rect")
           // set the starting y value based on education_level key, as above
@@ -122,13 +129,20 @@ class Education_Salary extends Component {
           .attr("x", d => {
             return xScale(d.over_50_k)
           })
-          // the width of the bar should be equal to the total width minus the data value. this results in a complimentary value to the data bars.
-          .attr("width", d => {
+          // set initial bar width to 0 to allow for a transition
+          .attr('width', 0)
+          .attr('height', yScale.bandwidth())
+          .attr('fill', 'lightcoral')
+          .attr('fill-opacity', 0.75);
+
+      // set up transition for false bars
+      falseBars.transition()
+          // transition in after data bars finish entering
+          .delay(700)
+          // the width of the bar should be equal to the total width minus the data value. This results in a complimentary value to the data bars.
+          .attr('width', d => {
             return w - xScale(d.over_50_k)
           })
-          .attr("height", yScale.bandwidth())
-          .attr("fill", "lightcoral")
-          .attr('fill-opacity', 0.75);
 
       // false legend square
       svg.append('rect')

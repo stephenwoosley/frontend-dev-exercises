@@ -17,6 +17,16 @@
   }
 }
 
+.grid line {
+  stroke: rgb(155, 154, 154);
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.grid path {
+  stroke-width: 0;
+}
+
 .toolTip {
   position: absolute;
   font: 10px sans-serif;
