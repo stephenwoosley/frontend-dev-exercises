@@ -19,7 +19,7 @@ class Education_Salary extends Component {
     d3.csv(education_salary, (data) => {
       
       // set up const variables to be used throughout
-      const margin = {top: 40, right: 40, bottom: 40, left: 180};
+      const margin = {top: 40, right: 40, bottom: 60, left: 140};
       const svg = d3.select('svg');
       // set width and height variables while leaving margins
       const w = +svg.attr('width') - margin.left - margin.right;
@@ -194,6 +194,22 @@ class Education_Salary extends Component {
           .attr('font-weight', 'bold')
           .attr('fill', 'black')
           .attr('transform', 'translate(0,32)');
+
+      // text label for the x axis
+      svg.append("text")             
+          .attr("transform",
+                "translate(" + (w/2) + " ," + 
+                              (h + margin.top + 50) + ")")
+          .text("Percentage with Salaries over $50k");
+      
+      // text label for the y axis
+      svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("y", 10)
+          .attr("x",0 - (h / 2))
+          .attr("dy", "1em")
+          .style("text-anchor", "middle")
+          .text("Education Level");  
     })
     
   }
